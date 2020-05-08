@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# Written by Michael Gillett
+# Written by Michael Gillett, 2020
 # github.com/gillettmi
 
 # A simple morse code conversion program
@@ -104,9 +104,9 @@ def main(text_file, output_file):
         elif t == '-':
             ws.Beep(fq, 200)
         else:
-            time.sleep(.5)
+            time.sleep(.3)
 
 
 if __name__ == '__main__':
-    # runs the main Morse Code converter /// argument 0 = input file, argument 1 = output file
+    # runs the main Morse Code converter /// var 0 = input file, var 1 = output file
     main('input.txt', 'output.txt')
