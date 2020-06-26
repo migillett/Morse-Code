@@ -50,7 +50,7 @@ output = ''
 errors = ''
 
 current_directory = os.getcwd()
-input_file = os.path.join(current_directory, 'input.txt')
+# input_file = os.path.join(current_directory, 'input.txt')
 output_file = os.path.join(current_directory, 'output.txt')
 
 
@@ -113,6 +113,13 @@ def decode_morse(message='', encrypted=False, decrypt_key=0):
                                                key=decrypt_key)
         print('Your decrypted message:', decrypted_message)
         write_file(decrypted_message, output_file)
+
+
+# Still working on this section
+# def import_text_file(save_location):
+#     with open(save_location, 'r') as f:
+#         file_contents = f.readlines()
+#         return file_contents
 
 
 def write_file(message_output, save_location):
