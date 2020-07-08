@@ -7,13 +7,8 @@
 
 import time
 import os
+from playsound import playsound as ps
 from cipher import *
-try:
-    import winsound as ws
-    audio_output = True
-except ModuleNotFoundError:
-    print('Winsound module not found. Audio output is disabled.\n')
-    audio_output = False
 
 morse = {
     'a': '.-',      'b': '-...',    'c': '-.-.',
@@ -26,10 +21,10 @@ morse = {
     'v': '...-',    'w': '.--',     'x': '-..-',
     'y': '-.--',    'z': '--..',
 
-    '1': '.----',   '2': '..---',   '3': '...---',
-    '4': '....-',   '5': '.....',   '6': '-....',
-    '7': '--...',   '8': '---..',   '9': '----.',
-    '0': '-----',
+    # '1': '.----',   '2': '..---',   '3': '...---',
+    # '4': '....-',   '5': '.....',   '6': '-....',
+    # '7': '--...',   '8': '---..',   '9': '----.',
+    # '0': '-----',
 
     # '.': '.-.-.-',  ',': '--..--',  '?': '..--..',
     # '!': '-.-.--',  '&': '.-...',   ':': '---...',
@@ -108,9 +103,7 @@ def decode_morse(message='', encrypted=False, decrypt_key=0):
 
     if encrypted:
         for letter in output_message:
-            decrypted_message += caesar_cypher(letter=letter,
-                                               mode='decrypt',
-                                               key=decrypt_key)
+            decrypted_message += caesar_cypher(letter=letter, mode='decrypt', key=decrypt_key)
         print('Your decrypted message:', decrypted_message)
         write_file(decrypted_message, output_file)
 
@@ -128,15 +121,17 @@ def write_file(message_output, save_location):
         o.write(message_output)
 
 
-def transmit(input_morse, tempo=100, fq=600):
+def transmit(input_morse):
+    dot = os.path.join(current_directory, 'audio', 'dot.mp3')
+    dash = os.path.join(current_directory, 'audio', 'dash.mp3')
     print('Transmitting message:', input_morse)
     for t in input_morse:
         if t == '.':
-            ws.Beep(fq, tempo)
+            ps(dot)
         elif t == '-':
-            ws.Beep(fq, tempo*3)
+            ps(dash)
         else:
-            time.sleep(tempo/250)
+            time.sleep(0.2)
     print('\nTransmission complete')
 
 
