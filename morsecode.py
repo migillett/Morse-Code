@@ -51,6 +51,8 @@ def generate_morse_audio(text, frequency=600, dot_length=0.07, sample_rate=44100
             signal = np.append(signal, generate_silence(space_between_symbols))
         elif char == ' ':  # Space (between words or letters)
             signal = np.append(signal, generate_silence(space_between_words if signal[-1] != 0 else space_between_letters))
+    
+    signal = np.append(signal, generate_silence(space_between_words))  # End with silence
 
     # Convert to 16-bit PCM format and save to WAV file
     wave_int16 = np.int16(signal * 32767)
@@ -61,5 +63,7 @@ def generate_morse_audio(text, frequency=600, dot_length=0.07, sample_rate=44100
     sd.play(signal, samplerate=sample_rate)
     sd.wait()
 
-# Example: Generate Morse Code Audio for "HELLO WORLD"
-generate_morse_audio("HELLO WORLD")
+
+if __name__ == "__main__":
+    user_input = input("Enter text to convert to Morse code: ")
+    generate_morse_audio(user_input)
