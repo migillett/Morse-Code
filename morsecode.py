@@ -1,3 +1,5 @@
+import argparse
+
 import numpy as np
 import sounddevice as sd
 import scipy.io.wavfile as wav
@@ -65,5 +67,12 @@ def generate_morse_audio(text, frequency=600, dot_length=0.07, sample_rate=44100
 
 
 if __name__ == "__main__":
-    user_input = input("Enter text to convert to Morse code: ")
-    generate_morse_audio(user_input)
+    parser = argparse.ArgumentParser(description="Convert text to Morse code audio.")
+    parser.add_argument("text", type=str, help="Text to convert to Morse code.")
+    parser.add_argument("--frequency", type=int, default=600, help="Frequency of the Morse code tone (Hz).")
+    parser.add_argument("--dot-length", type=float, default=0.07, help="Length of a dot in seconds.")
+    parser.add_argument("--sample-rate", type=int, default=44100, help="Sample rate for audio playback.")
+    parser.add_argument("--output-file", type=str, default="morse.wav", help="Output WAV file name.")
+    args = parser.parse_args()
+    
+    generate_morse_audio(args.text, args.frequency, args.dot_length, args.sample_rate, args.output_file)
