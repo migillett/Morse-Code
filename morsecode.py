@@ -20,7 +20,7 @@ def text_to_morse(text):
     """Convert text to Morse code."""
     return ' '.join(MORSE_CODE_DICT.get(char.upper(), '') for char in text)
 
-def generate_morse_audio(text, frequency=600, dot_length=0.07, sample_rate=44100, output_file="morse.wav"):
+def generate_morse_audio(text, frequency=600, dot_length=0.06, sample_rate=44100, output_file="morse.wav"):
     """Generate a Morse code WAV file from text."""
     morse_code = text_to_morse(text)
     print(f"Morse Code: {morse_code}")
@@ -70,9 +70,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Convert text to Morse code audio.")
     parser.add_argument("text", type=str, help="Text to convert to Morse code.")
     parser.add_argument("--frequency", type=int, default=600, help="Frequency of the Morse code tone (Hz).")
-    parser.add_argument("--dot-length", type=float, default=0.07, help="Length of a dot in seconds.")
+    parser.add_argument("--dot-length", type=float, default=0.06, help="Length of a dot in seconds.")
     parser.add_argument("--sample-rate", type=int, default=44100, help="Sample rate for audio playback.")
     parser.add_argument("--output-file", type=str, default="morse.wav", help="Output WAV file name.")
     args = parser.parse_args()
-    
+
     generate_morse_audio(args.text, args.frequency, args.dot_length, args.sample_rate, args.output_file)
